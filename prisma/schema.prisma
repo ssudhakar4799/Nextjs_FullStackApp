@@ -1,0 +1,19 @@
+// schema.prisma
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB ObjectId
+  name      String
+  email     String   @unique
+  role      String   @default("USER")  // Roles like 'USER' or 'ADMIN'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
